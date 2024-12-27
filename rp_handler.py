@@ -9,7 +9,10 @@ import runpod
 # Initialize the Hugging Face Inference Client
 client = InferenceClient(token="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")
 
-def generate_image(prompt, model_name="black-forest-labs/FLUX.1-dev", max_retries=3, delay=10):
+# Model initialization outside the handler function to preload the model and improve Cold Start times
+model_name = "black-forest-labs/FLUX.1-dev"
+
+def generate_image(prompt, model_name, max_retries=3, delay=10):
     """Generate an image from text using the Hugging Face Inference API."""
     for attempt in range(max_retries):
         try:
